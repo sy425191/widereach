@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import Login from "./components/auth/Login.js";
+import SignUp from "./components/auth/Signup.js";
+import AuthScreen from "./pages/auth.js";
+import Dashboard from "./pages/dashboard.js";
+import LandingPage from "./pages/landing.js";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import MagicCenter from "./pages/magicPage.js";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="bg-slate-950 text-white w-full h-screen overflow-y-auto">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/auth" element={<AuthScreen />}>
+            <Route path="" element={<Login />} />
+            <Route path="signup" element={<SignUp />} />
+          </Route>
+          <Route path="/dashboard" element={<Dashboard />}>
+            <Route path="" element={<MagicCenter />} />
+            <Route path=":id" element={<h1>Dashboard</h1>} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
