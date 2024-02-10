@@ -12,7 +12,7 @@ const MagicCenter = () => {
   const [loading, setLoading] = useState(false);
   const [showEditor, setShowEditor] = useState(false);
   const [overLayText, setOverLayText] = useState("");
-  const [overlayTextTop, setOverlayTextTop] = useState("60%");
+  const [overlayTextTop, setOverlayTextTop] = useState("80%");
 
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [selectedLanguage, setSelectedLanguage] = useState(languageOptions[0]);
@@ -36,17 +36,21 @@ const MagicCenter = () => {
   const [time, setTime] = useState("00:00:00");
 
   const toggleVideoPlay = () => {
-    if (!isPlaying) {
-      videoPlayerRef.current.play();
-      timeLineState.current.play({
-        autoEnd: true,
-      });
-      setIsPlaying(true);
-    } else {
-      videoPlayerRef.current.pause();
-      timeLineState.current.pause();
-      setIsPlaying(false);
-    }
+    // const isPlayingVideo =
+    //   videoPlayerRef.current.currentTime > 0 &&
+    //   !videoPlayerRef.current.paused &&
+    //   !videoPlayerRef.current.ended &&
+    //   videoPlayerRef.current.readyState > 2;
+
+    // if (isPlayingVideo === false) {
+    //   // videoPlayerRef.current.play();
+    //   timeLineState.current.play();
+    //   setIsPlaying(true);
+    // } else {
+    //   // videoPlayerRef.current.pause();
+    //   timeLineState.current.pause();
+    //   setIsPlaying(false);
+    // }
   };
 
   const handleSubmit = () => {
@@ -139,6 +143,7 @@ const MagicCenter = () => {
                 textSize={textSize}
                 fontBold={fontBold}
                 overlayTextTop={overlayTextTop}
+                setOverlayTextTop={setOverlayTextTop}
               />
             </div>
             <div className="flex-1 h-full overflow-y-auto pb-4">

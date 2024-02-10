@@ -10,7 +10,7 @@ export const TimelineEditor = ({ subtitles, timeLineState }) => {
         id: `action${index}`,
         start: (subtitle.offset / 10000000).toFixed(2),
         end: ((subtitle.offset + subtitle.duration) / 10000000).toFixed(2),
-        minStart: ((subtitle.offset / 10000000)+0.5).toFixed(2),
+        minStart: ((subtitle.offset / 10000000)-0.5).toFixed(2),
         maxEnd: (((subtitle.offset + subtitle.duration) / 10000000)+0.5).toFixed(2),
         effectId: "effect0",
         text: subtitle.text,
@@ -59,6 +59,7 @@ export const TimelineEditor = ({ subtitles, timeLineState }) => {
               justifyContent: "center",
               alignItems: "center",
               fontSize: "11px",
+              cursor: "pointer",
             }}
           >
             {action.text}

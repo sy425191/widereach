@@ -23,7 +23,7 @@ const TimelinePlayer = ({
     return () => {
       window.removeEventListener("keydown", handleSpace);
     };
-  }, []);
+  }, [videoPlayerRef, toggleVideoPlay]);
 
   return (
     <div className="flex justify-between items-center bg-slate-800 rounded h-6 text-xs w-full">
