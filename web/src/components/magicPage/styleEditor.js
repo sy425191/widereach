@@ -1,153 +1,186 @@
-import { TwitterPicker } from "react-color";
+import { useContext, useState } from "react";
+import { EditorContext } from "../../context/editorContext";
 import { BackgroundColors, TextColors } from "./colorConstants";
+import Select from "react-select";
+import MagicPageSelect from "../../utils/reactSelectStyle";
+import { FontFamilies } from "../../utils/constants";
+import { ColorSelect } from "./colorSelect";
 
-const StyleEditor = (
-    {
-        editorPage,
-        setEditorPage,
-        fontBold,
-        setFontBold,
-        textColor,
-        setTextColor,
-        bgColor,
-        setBgColor,
-        textSize,
-        setTextSize,
-    }
-) => {
+const StyleEditor = () => {
+  const [styleEditorTab, setStyleEditorTab] = useState(0);
+  const editorContext = useContext(EditorContext);
+
   return (
-    <div className="w-full flex justify-between items-start px-2 py-1 text-slate-300 bg-slate-900 min-h-16 rounded-xl">
-      <div className="w-36 h-full flex flex-col items-start space-y-3 py-3 border-r-2 border-slate-800">
+    <div className="w-64 rounded bg-slate-900 h-full flex flex-col justify-start items-center gap-y-4">
+      <div className="w-full rounded text-sm font-bold text-slate-200 bg-slate-800 flex pb-1 border-b-2 border-pink-800">
         <div
-          className={`text-sm px-2 py-1 rounded cursor-pointer ${
-            editorPage === 0 && "text-slate-950 bg-slate-300"
-          }`}
-          onClick={() => setEditorPage(0)}
+          className="px-3 py-1 cursor-pointer hover:underline"
+          style={
+            styleEditorTab === 0 ? { color: "#f0f0f0" } : { color: "#a0a0a0" }
+          }
+          onClick={() => setStyleEditorTab(0)}
         >
-          Font Weight
+          Edit
         </div>
         <div
-          className={`text-sm px-2 py-1 rounded cursor-pointer ${
-            editorPage === 1 && "text-slate-950 bg-slate-300"
-          }`}
-          onClick={() => setEditorPage(1)}
+          className="px-3 py-1 cursor-pointer hover:underline"
+          style={
+            styleEditorTab === 1 ? { color: "#f0f0f0" } : { color: "#a0a0a0" }
+          }
+          onClick={() => setStyleEditorTab(1)}
         >
-          Text Color
-        </div>
-        <div
-          className={`text-sm px-2 py-1 rounded cursor-pointer ${
-            editorPage === 2 && "text-slate-950 bg-slate-300"
-          }`}
-          onClick={() => setEditorPage(2)}
-        >
-          Background Color
-        </div>
-        <div
-          className={`text-sm px-2 py-1 rounded cursor-pointer ${
-            editorPage === 3 && "text-slate-950 bg-slate-300"
-          }`}
-          onClick={() => setEditorPage(3)}
-        >
-          Font Size
+          Subtitle
         </div>
       </div>
 
-      <div className="flex-1">
-        {editorPage === 0 && (
-          <div className="flex flex-col">
-            <div className="h-full flex justify-center items-center space-x-6 pt-12">
-              <div
-                className={`px-3 py-2 rounded cursor-pointer ${
-                  fontBold === "400" && "bg-slate-300 text-slate-950"
-                }`}
-                onClick={() => setFontBold("400")}
-              >
-                Normal
-              </div>
-              <div
-                className={`px-3 py-2 rounded cursor-pointer font-semibold ${
-                  fontBold === "600" && "bg-slate-300 text-slate-950"
-                }`}
-                onClick={() => setFontBold("600")}
-              >
-                Semi-Bold
-              </div>
-              <div
-                className={`px-3 py-2 rounded cursor-pointer font-bold ${
-                  fontBold === "700" && "bg-slate-300 text-slate-950 "
-                }`}
-                onClick={() => setFontBold("700")}
-              >
-                Bold
-              </div>
-            </div>
-          </div>
-        )}
+      <div className="w-full max-h-full overflow-y-auto flex flex-col gap-y-2 px-2 pt-2">
+        {styleEditorTab === 0 && (
+          <div className="w-full flex flex-col gap-y-3">
+            <div className="flex flex-col gap-y-2 text-dm text-slate-300">
+              <div className="text-slate-400 text-xs">Font</div>
 
-        {editorPage === 1 && (
-          <div className="h-full flex flex-col items-center space-y-3 py-3">
-            <div
-              className="w-48 h-10 rounded cursor-pointer"
-              style={{ backgroundColor: textColor }}
-            ></div>
-            <TwitterPicker
-              color={textColor}
-              style={{ background: "transparent!important" }}
-              onChangeComplete={(color) => setTextColor(color.hex)}
-              colors={TextColors}
-            />
-          </div>
-        )}
+              <div className="flex w-full gap-x-2">
+                <ColorSelect color={editorContext.textColor} setColor={editorContext.setTextColor} colorsList={TextColors} />
+                <Select
+                className="flex-1"
+                  value={editorContext.fontFamily}
+                  styles={MagicPageSelect}
+                  onChange={(option) =>
+                    editorContext.setFontFamily(option)
+                  }
+                  options={FontFamilies}
+                  menuPortalTarget={document.body}
+                />
+              </div>
 
-        {editorPage === 2 && (
-          <div className="h-full flex flex-col items-center space-y-3 py-3">
-            <div
-              className="w-48 h-10 rounded cursor-pointer"
-              style={{ backgroundColor: bgColor }}
-            >
-              {bgColor === "transparent" && (
-                <div className="w-full text-center text-slate-300">
-                  Transparent
+              <div className="flex items-center gap-x-2">
+                <div
+                  className={`px-2 py-1 bg-slate-800 text-slate-300 rounded cursor-pointer
+                  ${
+                    editorContext.textSize === 12
+                      ? "bg-pink-800"
+                      : "hover:bg-pink-800"
+                  }`}
+                  style={{ fontSize: "12px" }}
+                  onClick={() => editorContext.setTextSize(12)}
+                >
+                  A
                 </div>
-              )}
+                <div
+                  className={`px-2 py-0.5 bg-slate-800 text-slate-300 rounded cursor-pointer
+                  ${
+                    editorContext.textSize === 16
+                      ? "bg-pink-800"
+                      : "hover:bg-pink-800"
+                  }`}
+                  style={{ fontSize: "16px" }}
+                  onClick={() => editorContext.setTextSize(16)}
+                >
+                  A
+                </div>
+
+                <div
+                  className={`px-2 bg-slate-800 text-slate-300 rounded cursor-pointer
+                  ${
+                    editorContext.textSize === 20
+                      ? "bg-pink-800"
+                      : "hover:bg-pink-800"
+                  }`}
+                  style={{ fontSize: "20px" }}
+                  onClick={() => editorContext.setTextSize(20)}
+                >
+                  A
+                </div>
+
+                <div
+                  className={`px-2 bg-slate-800 text-slate-300 rounded cursor-pointer 
+                  ${
+                    editorContext.textSize === 24
+                      ? "bg-pink-800"
+                      : "hover:bg-pink-800"
+                  }`}
+                  style={{ fontSize: "24px" }}
+                  onClick={() => editorContext.setTextSize(24)}
+                >
+                  A
+                </div>
+
+                <div className="h-full border-l-2 border-slate-800"></div>
+
+                <div
+                  className={`px-2 bg-slate-800 text-slate-300 rounded cursor-pointer ${
+                    editorContext.fontBold === "normal"
+                      ? "bg-pink-800"
+                      : "hover:bg-pink-800"
+                  }`}
+                  onClick={() => editorContext.setFontBold("normal")}
+                >
+                  B
+                </div>
+
+                <div
+                  className={`px-2 bg-slate-800 text-slate-300 font-bold rounded cursor-pointer ${
+                    editorContext.fontBold === "bold"
+                      ? "bg-pink-800"
+                      : "hover:bg-pink-800"
+                  }`}
+                  onClick={() => editorContext.setFontBold("bold")}
+                >
+                  B
+                </div>
+              </div>
             </div>
-            <TwitterPicker
-              color={bgColor}
-              style={{ background: "transparent!important" }}
-              onChangeComplete={(color) => setBgColor(color.hex)}
-              colors={BackgroundColors}
-            />
+            <div className="flex flex-col gap-y-2 text-dm text-slate-300">
+              <div className="text-slate-400 text-xs">Border</div>
+
+              <div className="flex items-center gap-x-2">
+                {/* border size- select box */}
+                <select
+                  value={editorContext.border}
+                  onChange={(e) => editorContext.setBorder(e.target.value)}
+                  className="px-2 py-1 bg-slate-800 text-slate-300 rounded"
+                >
+                  <option value="none">None</option>
+                  <option value="1px solid #000">1px</option>
+                  <option value="2px solid #000">2px</option>
+                  <option value="3px solid #000">3px</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-y-2 text-dm text-slate-300">
+              <div className="text-slate-400 text-xs">Color</div>
+              <div className="flex items-center gap-x-2">
+                {/* Color boxes - Text, Background, Outline */}
+                {BackgroundColors.map((color, index) => (
+                  <div
+                    key={index}
+                    className="w-8 h-8 bg-slate-800 rounded cursor-pointer flex justify-center items-center border-2 border-slate-800"
+                    style={{ backgroundColor: color }}
+                    onClick={() => editorContext.setBgColor(color)}
+                  >
+                    B
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         )}
 
-        {editorPage === 3 && (
-          <div className="flex justify-center items-center space-x-3">
+        {styleEditorTab === 1 &&
+          editorContext.subtitle?.map((sub, index) => (
             <div
-              className={`px-3 py-2 rounded cursor-pointer text-[18px] ${
-                textSize === "18" && "bg-slate-300 text-slate-950"
-              }`}
-              onClick={() => setTextSize("18")}
+              key={index}
+              className="flex flex-col bg-slate-800 px-1 py-0.5 text-slate-300 rounded cursor-pointer hover:bg-slate-700/80"
             >
-              Small
+              <div className="text-xs text-slate-400">
+                <i className="fa fa-clock-o pr-2"></i>
+                {sub.offset / 10000000} -{" "}
+                {(sub.offset + sub.duration) / 10000000}
+              </div>
+              <div className="text-sm">{sub.text}</div>
             </div>
-            <div
-              className={`px-3 py-2 rounded cursor-pointer text-[24px] ${
-                textSize === "24" && "bg-slate-300 text-slate-950"
-              }`}
-              onClick={() => setTextSize("24")}
-            >
-              Medium
-            </div>
-            <div
-              className={`px-3 py-2 rounded cursor-pointer text-[32px] ${
-                textSize === "32" && "bg-slate-300 text-slate-950"
-              }`}
-              onClick={() => setTextSize("32")}
-            >
-              Large
-            </div>
-          </div>
-        )}
+          ))}
       </div>
     </div>
   );

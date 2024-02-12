@@ -26,7 +26,7 @@ const MultiStepForm = ({
         <div
           className="absolute text-slate-300 bg-slate-900 font-semibold min-w-96 min-h-36 cursor-pointer flex justify-center items-center rounded
               transition-all duration-300 ease-in-out transform hover:scale-105
-              overflow-hidden transition-all duration-300 ease-in-out transform scale-0 origin-top"
+              overflow-hidden transition-all duration-300 ease-in-out transform scale-0 origin-top border-4 border-purple-800"
           style={{
             transform: multiSelectFormPage === 0 ? "scale(1)" : "scale(0)",
           }}
@@ -58,7 +58,7 @@ const MultiStepForm = ({
 
         <div
           className="absolute text-slate-300 bg-slate-900 font-semibold min-w-96 h-36 flex flex-col justify-evenly items-center rounded
-            overflow-hidden transition-all duration-300 ease-in-out transform scale-0 origin-top"
+            overflow-hidden transition-all duration-300 ease-in-out transform scale-0 origin-top border-4 border-purple-800"
           style={{
             transform: multiSelectFormPage === 1 ? "scale(1)" : "scale(0)",
           }}
@@ -93,7 +93,7 @@ const MultiStepForm = ({
 
         <div
           className="absolute text-slate-300 bg-slate-900 font-semibold min-w-96 h-36 flex flex-col justify-evenly items-center rounded
-          overflow-hidden transition-all duration-300 ease-in-out transform scale-0 origin-top"
+          overflow-hidden transition-all duration-300 ease-in-out transform scale-0 origin-top border-4 border-purple-800"
           style={{
             transform: multiSelectFormPage === 2 ? "scale(1)" : "scale(0)",
           }}

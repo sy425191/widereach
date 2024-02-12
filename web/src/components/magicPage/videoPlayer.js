@@ -1,82 +1,92 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { EditorContext } from "../../context/editorContext";
+import { VideoPlayerContext } from "../../context/videoPlayerContext";
 
-const VideoPlayer = ({
-  video,
-  handleUpdate,
-  videoPlayerRef,
-  overLayText,
-  bgColor,
-  textColor,
-  textSize,
-  fontBold,
-  overlayTextTop,
-  setOverlayTextTop,
-}) => {
-  const [videoSize, setVideoSize] = useState({ width: 0, height: 0 });
-
-  useEffect(() => {
-    if (videoPlayerRef.current) {
-      setVideoSize({
-        width: videoPlayerRef.current.clientWidth,
-        height: videoPlayerRef.current.clientHeight,
-      });
-    }
-
-    return () => {
-      setVideoSize({ width: 0, height: 0 });
-    };
-  }, [videoPlayerRef]);
+const VideoPlayer = ({ video }) => {
+  const editorContext = useContext(EditorContext);
+  const playerContext = useContext(VideoPlayerContext);
 
   return (
-    <div className="w-full h-full flex flex-col relative items-center justify-center">
+    <>
       <video
-        ref={videoPlayerRef}
-        className="border-4 rounded-t-lg border-slate-300 absolute"
-        onTimeUpdate={handleUpdate}
+        ref={editorContext.videoPlayerRef}
+        className="absolute"
+        onTimeUpdate={playerContext.handleTimeUpdate}
         style={{
           width: "auto",
           height: "100%",
           objectFit: "contain",
         }}
-        onResize={(e) => {
-          setVideoSize({
-            width: e.target.clientWidth,
-            height: e.target.clientHeight,
-          });
-        }}
       >
         <source src={URL.createObjectURL(video)} type="video/mp4" />
-        <source src={URL.createObjectURL(video)} type="video/ogg" />
       </video>
-      <div
-        className="mx-1 absolute flex justify-center overflow-hidden"
+      <canvas
+        ref={editorContext.canvasRef}
+        className="absolute z-10 bg-slate-800 rounded-t-lg"
         style={{
-          width: videoSize.width,
-          height: videoSize.height,
+          objectFit: "fill",
+        }}
+        width={editorContext.videoPlayerRef.current?.clientWidth || 0}
+        height={editorContext.videoPlayerRef.current?.clientHeight || 0}
+      />
+
+      {editorContext.overLaySelected && (
+        <div
+          className="mx-1 absolute flex justify-center overflow-hidden z-20 bg-pink-300/30"
+          style={{
+            width: editorContext.videoPlayerRef.current?.clientWidth || 0,
+            height: editorContext.videoPlayerRef.current?.clientHeight || 0,
+          }}
+        >
+          {/* vertical and horizonal lines */}
+          <div className="absolute w-0.5 h-full bg-rose-50" />
+          <div
+            className="absolute w-full h-0.5 bg-rose-50"
+            style={{
+              top: editorContext.overlayTextTop + "px",
+            }}
+          />
+        </div>
+      )}
+
+      <div
+        className="mx-1 absolute flex justify-center overflow-hidden z-30"
+        style={{
+          width: editorContext.videoPlayerRef.current?.clientWidth || 0,
+          height: editorContext.videoPlayerRef.current?.clientHeight || 0,
         }}
       >
         <div
           id="overlay-text"
-          className={`absolute transform px-2 text-center rounded-lg cursor-pointer border-dotted border-2 ${
-            overLayText ? "block" : "hidden"
-          }`}
-          draggable="true"
-          onDragEnd={(e) => setOverlayTextTop(e.clientY)}
+          className={`absolute transform px-2 text-center rounded-lg user-select-none ${
+            editorContext.overLayText ? "block" : "hidden"
+          }
+          ${editorContext.overLaySelected ? "cursor-move" : "cursor-pointer"}
+          `}
+          draggable={editorContext.overLaySelected ? true : false}
+          onDragEnd={(e) => editorContext.setOverlayTextTop(e.clientY)}
           style={{
-            color: textColor,
-            backgroundColor: bgColor,
-            fontSize: `${textSize}px`,
-            fontWeight: fontBold,
+            color: editorContext.textColor,
+            fontSize: `${editorContext.textSize}px`,
+            fontWeight: editorContext.fontBold,
             width: "fit-content",
-            maxWidth: videoSize.width - 20,
-            top: overlayTextTop,
+            maxWidth: "90%",
+            top: editorContext.overlayTextTop,
             margin: "auto",
+            border: editorContext.border,
+            fontFamily: editorContext.fontFamily.value,
+            backgroundColor: editorContext.overLaySelected
+              ? "rgba(0,0,0,0.5)"
+              : editorContext.bgColor,
+          }}
+          onClick={(e) => {
+            editorContext.setOverLaySelected(!editorContext.overLaySelected);
           }}
         >
-          {overLayText}
+          {editorContext.overLayText}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

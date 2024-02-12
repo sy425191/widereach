@@ -1,23 +1,29 @@
 import { Timeline } from "@xzdarcy/react-timeline-editor";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { EditorContext } from "../../context/editorContext";
 
-export const TimelineEditor = ({ subtitles, timeLineState }) => {
+export const TimelineEditor = () => {
+  const editorContext = useContext(EditorContext);
+
   const [actions, setActions] = useState([]);
 
   useEffect(() => {
-    const actions = subtitles.map((subtitle, index) => {
+    const actions = editorContext.subtitle.map((subtitle, index) => {
       return {
         id: `action${index}`,
         start: (subtitle.offset / 10000000).toFixed(2),
         end: ((subtitle.offset + subtitle.duration) / 10000000).toFixed(2),
-        minStart: ((subtitle.offset / 10000000)-0.5).toFixed(2),
-        maxEnd: (((subtitle.offset + subtitle.duration) / 10000000)+0.5).toFixed(2),
+        minStart: (subtitle.offset / 10000000 - 0.5).toFixed(2),
+        maxEnd: (
+          (subtitle.offset + subtitle.duration) / 10000000 +
+          0.5
+        ).toFixed(2),
         effectId: "effect0",
         text: subtitle.text,
       };
     });
     setActions(actions);
-  }, [subtitles]);
+  }, [editorContext.subtitle]);
 
   const editorData = [
     {
@@ -33,16 +39,19 @@ export const TimelineEditor = ({ subtitles, timeLineState }) => {
       style={{
         width: "100%",
         height: "100%",
-        position: "absolute",
         top: 0,
         left: 0,
         backgroundColor: "#0F172A",
       }}
-      ref={timeLineState}
+      ref={editorContext.timeLineState}
       autoScroll={true}
+      minScaleCount={5}
       maxScaleCount={60}
-      gridSnap={true}
-      onChange={(data) => console.log(data)}
+      scale={1}
+      onChange={(data) => {
+        editorContext.setSubtitle(data[0].actions);
+      }}
+      reRender={true}
       getActionRender={(action, index) => {
         return (
           <div
