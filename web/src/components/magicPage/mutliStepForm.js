@@ -1,6 +1,11 @@
 import Select from "react-select";
 import { languageOptions } from "../../utils/languageOptions.js";
 import MagicPageSelect from "../../utils/reactSelectStyle.js";
+import {
+  FileSelectAdd,
+  FileSelectPause,
+  FileSelectPlay,
+} from "./multistepform/fileSelectGraphics.js";
 
 const MultiStepForm = ({
   multiSelectFormPage,
@@ -24,7 +29,7 @@ const MultiStepForm = ({
     >
       <div className="flex flex-col justify-center items-center space-y-4 relative">
         <div
-          className="absolute text-slate-300 bg-slate-900 font-semibold min-w-96 min-h-36 cursor-pointer flex justify-center items-center rounded
+          className="absolute group text-slate-300 bg-slate-900 font-semibold min-w-96 min-h-52 cursor-pointer flex justify-center items-center rounded
               transition-all duration-300 ease-in-out transform hover:scale-105
               overflow-hidden transition-all duration-300 ease-in-out transform scale-0 origin-top border-4 border-purple-800"
           style={{
@@ -41,19 +46,30 @@ const MultiStepForm = ({
               setSelectedVideo(e.target.files[0]);
             }}
           />
-          {selectedVideo ? (
-            <div className="">
-              {selectedVideo.name.length > 20
-                ? selectedVideo.name.slice(0, 20) + "..."
-                : selectedVideo.name}
-              <i className="fa fa-check ml-2"></i>
+          <div className="flex flex-col items-center">
+            <div className="flex">
+              <FileSelectPause />
+              <FileSelectAdd />
+              <FileSelectPlay />
             </div>
-          ) : (
-            <div className="">
-              Select Video
-              <i className="fa fa-upload ml-2"></i>
+            <div className="w-full flex flex-col items-center my-2">
+              {selectedVideo ? (
+                <div className="">
+                  {selectedVideo.name.length > 20
+                    ? selectedVideo.name.slice(0, 20) + "..."
+                    : selectedVideo.name}
+                  <i className="fa fa-check ml-2"></i>
+                </div>
+              ) : (
+                <>
+                  <div className="text-lg text-slate-400 group-hover:scale-105 duration-100">
+                    Upload Video
+                  </div>
+                  <div className="text-xs text-slate-400">or drag and drop</div>
+                </>
+              )}
             </div>
-          )}
+          </div>
         </div>
 
         <div

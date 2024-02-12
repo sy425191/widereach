@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MagicCenter from "./pages/magicPage.js";
 import { EditorProvider } from "./context/editorContext.js";
 import { VideoPlayerProvider } from "./context/videoPlayerContext.js";
+import MyVideosPage from "./pages/myVideos.js";
 
 function App() {
   return (
@@ -19,10 +20,11 @@ function App() {
               <Route path="/auth" element={<AuthScreen />}>
                 <Route path="" element={<Login />} />
                 <Route path="signup" element={<SignUp />} />
+                <Route path="reset" element={<div> ok </div>} />
               </Route>
               <Route path="/dashboard" element={<Dashboard />}>
                 <Route path="" element={<MagicCenter />} />
-                <Route path=":id" element={<h1>Dashboard</h1>} />
+                <Route path="videos" element={<MyVideosPage />} />
               </Route>
             </Routes>
           </BrowserRouter>

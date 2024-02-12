@@ -26,7 +26,7 @@ const MagicCenter = () => {
   const [multiSelectFormPage, setMultiSelectFormPage] = useState(0);
 
   const [editorPage, setEditorPage] = useState(0);
- 
+
   const handleSubmit = () => {
     if (!selectedVideo) {
       alert("Please select a video file.");
@@ -51,6 +51,7 @@ const MagicCenter = () => {
     )
       .then((res) => {
         editorContext.setSubtitle(res);
+        editorContext.sendSubtitleToEditor(res);
       })
       .catch((err) => {
         editorContext.setSubtitle([]);

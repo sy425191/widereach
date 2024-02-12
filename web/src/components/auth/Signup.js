@@ -3,41 +3,56 @@ import InputBox from "./InputBox";
 
 const SignUp = () => {
   return (
-    <>
-      <div className="w-full md:w-2/3 space-y-3 ">
-        <InputBox icon="user" type="email" placeholder="Email" />
-        <InputBox
-          icon="instagram"
-          type="text"
-          placeholder="Username"
-        />
-        <InputBox icon="key" type="password" placeholder="Password" />
-      </div>
-
-      <div className="w-full md:w-2/3 flex flex-col gap-y-3 justify-center">
-        <button className="w-full bg-green-800 px-2 py-1 rounded">
-          Proceed
-          <i className="px-2 fa fa-angle-right"></i>
-        </button>
-        <div className="flex space-x-2">
-          <button className="w-1/2 bg-slate-900 px-2 py-1 rounded">
-            <i className="fa fa-google px-2"></i>
-            Google
-          </button>
-          <button className="w-1/2 bg-slate-900 px-2 py-1 rounded">
-            <i className="fa fa-twitter px-2"></i>
-            Twitter
+    <div class="w-full max-w-sm p-4 bg-white border border-slate-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-slate-800/30 dark:border-slate-700/30">
+      <form class="space-y-6" action="#">
+        <h5 class="text-xl flex font-medium text-slate-900 dark:text-white">
+          Welcome to{" "}
+          <Link
+            to={"/"}
+            className="text-lg font-bold px-2 bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent"
+          >
+            WIDEREACH
+          </Link>
+        </h5>
+        <div>
+          <label
+            for="email"
+            class="block mb-2 text-sm font-medium text-slate-900 dark:text-white"
+          >
+            Your email
+          </label>
+          <InputBox icon="user" type="email" placeholder="Email" />
+        </div>
+        <div>
+          <label
+            for="password"
+            class="block mb-2 text-sm font-medium text-slate-900 dark:text-white"
+          >
+            Your password
+          </label>
+          <InputBox icon="key" type="password" placeholder="Password" />
+        </div>
+        
+        <div className="flex flex-col space-y-4">
+          <button
+            type="submit"
+            class="w-full text-white
+            bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 focus:ring-3 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Next
           </button>
         </div>
-      </div>
-      <div className="text-slate-500">
-        <div className="w-full flex justify-center items-center">
-          <Link to="/auth" className="underline">
-            Already Have an Account?
+        <div class="text-sm font-medium text-slate-500 dark:text-slate-300">
+          Already registered?{" "}
+          <Link
+            to={"/auth"}
+            class="text-blue-700 hover:underline dark:text-blue-500"
+          >
+            Login
           </Link>
         </div>
-      </div>
-    </>
+      </form>
+    </div>
   );
 };
 

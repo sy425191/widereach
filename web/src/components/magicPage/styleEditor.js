@@ -40,14 +40,16 @@ const StyleEditor = () => {
               <div className="text-slate-400 text-xs">Font</div>
 
               <div className="flex w-full gap-x-2">
-                <ColorSelect color={editorContext.textColor} setColor={editorContext.setTextColor} colorsList={TextColors} />
+                <ColorSelect
+                  color={editorContext.textColor}
+                  setColor={editorContext.setTextColor}
+                  colorsList={TextColors}
+                />
                 <Select
-                className="flex-1"
+                  className="flex-1"
                   value={editorContext.fontFamily}
                   styles={MagicPageSelect}
-                  onChange={(option) =>
-                    editorContext.setFontFamily(option)
-                  }
+                  onChange={(option) => editorContext.setFontFamily(option)}
                   options={FontFamilies}
                   menuPortalTarget={document.body}
                 />
@@ -172,11 +174,19 @@ const StyleEditor = () => {
             <div
               key={index}
               className="flex flex-col bg-slate-800 px-1 py-0.5 text-slate-300 rounded cursor-pointer hover:bg-slate-700/80"
+              onClick={() => {
+                if (!editorContext.videoPlayerRef.current) return;
+                if (editorContext.videoPlayerRef.current.isPlaying) {
+                  editorContext.videoPlayerRef.current.pause();
+                }
+                editorContext.videoPlayerRef.current.currentTime =
+                  sub.offset / 10000000;
+              }}
             >
               <div className="text-xs text-slate-400">
                 <i className="fa fa-clock-o pr-2"></i>
-                {sub.offset / 10000000} -{" "}
-                {(sub.offset + sub.duration) / 10000000}
+                {(sub.offset / 10000000).toFixed(2)} -{" "}
+                {((sub.offset + sub.duration) / 10000000).toFixed(2)}
               </div>
               <div className="text-sm">{sub.text}</div>
             </div>

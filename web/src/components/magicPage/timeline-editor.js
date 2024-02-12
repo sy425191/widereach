@@ -5,30 +5,10 @@ import { EditorContext } from "../../context/editorContext";
 export const TimelineEditor = () => {
   const editorContext = useContext(EditorContext);
 
-  const [actions, setActions] = useState([]);
-
-  useEffect(() => {
-    const actions = editorContext.subtitle.map((subtitle, index) => {
-      return {
-        id: `action${index}`,
-        start: (subtitle.offset / 10000000).toFixed(2),
-        end: ((subtitle.offset + subtitle.duration) / 10000000).toFixed(2),
-        minStart: (subtitle.offset / 10000000 - 0.5).toFixed(2),
-        maxEnd: (
-          (subtitle.offset + subtitle.duration) / 10000000 +
-          0.5
-        ).toFixed(2),
-        effectId: "effect0",
-        text: subtitle.text,
-      };
-    });
-    setActions(actions);
-  }, [editorContext.subtitle]);
-
   const editorData = [
     {
       id: "1",
-      actions: actions,
+      actions: editorContext.actions,
     },
   ];
 
@@ -49,7 +29,15 @@ export const TimelineEditor = () => {
       maxScaleCount={60}
       scale={1}
       onChange={(data) => {
-        editorContext.setSubtitle(data[0].actions);
+        const newSubtitle = data[0].actions.map((action) => {
+          return {
+            text: action.text,
+            offset: action.start * 10000000,
+            duration: (action.end - action.start) * 10000000,
+          };
+        });
+        editorContext.setSubtitle(newSubtitle);
+        console.log(data[0].actions);
       }}
       reRender={true}
       getActionRender={(action, index) => {

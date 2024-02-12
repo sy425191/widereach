@@ -15,13 +15,15 @@ const EditorProvider = ({ children }) => {
 
   const [textColor, setTextColor] = useState("#ffffff");
   const [bgColor, setBgColor] = useState("transparent");
-  const [outLineColor, setOutLineColor] = useState("none");
-  const [textSize, setTextSize] = useState("18"); // in px
-  const [fontBold, setFontBold] = useState("400"); // 400, 600, 700, 800
+  const [strokeColor, setStrokeColor] = useState("none");
+  const [textSize, setTextSize] = useState("20"); // in px
+  const [fontBold, setFontBold] = useState("bold"); // 400, 600, 700, 800
   const [fontFamily, setFontFamily] = useState("Arial");
   const [border, setBorder] = useState("none"); // 1px solid #000
 
   const [overLaySelected, setOverLaySelected] = useState(false);
+
+  const [actions, setActions] = useState([]);
 
   let interval;
 
@@ -35,7 +37,7 @@ const EditorProvider = ({ children }) => {
 
     interval = setInterval(() => {
       timeLineState.current?.setTime(videoPlayerRef.current?.currentTime);
-      if (canvasRef.current){
+      if (canvasRef.current) {
         ctx.drawImage(
           videoPlayerRef.current,
           0,
@@ -53,6 +55,26 @@ const EditorProvider = ({ children }) => {
     console.log("pauseVideo");
     videoPlayerRef.current?.pause();
     clearInterval(interval);
+  };
+
+  const sendSubtitleToEditor = (subtitle) => {
+    const actions = subtitle.map((subtitle, index) => {
+      return {
+        id: `action${index}`,
+        offset: subtitle.offset,
+        duration: subtitle.duration,
+        start: (subtitle.offset / 10000000).toFixed(2),
+        end: ((subtitle.offset + subtitle.duration) / 10000000).toFixed(2),
+        minStart: (subtitle.offset / 10000000 - 0.5).toFixed(2),
+        maxEnd: (
+          (subtitle.offset + subtitle.duration) / 10000000 +
+          0.5
+        ).toFixed(2),
+        effectId: "effect0",
+        text: subtitle.text,
+      };
+    });
+    setActions(actions);
   };
 
   return (
@@ -87,6 +109,9 @@ const EditorProvider = ({ children }) => {
         setBorder,
         overLaySelected,
         setOverLaySelected,
+        actions,
+        setActions,
+        sendSubtitleToEditor,
       }}
     >
       {children}

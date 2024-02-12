@@ -4,15 +4,18 @@ import InputBox from "./InputBox";
 const Login = () => {
   return (
     <>
-      <div class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+      <div class="w-full max-w-sm p-4 bg-white border border-slate-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-slate-800/30 dark:border-slate-700/30">
         <form class="space-y-6" action="#">
-          <h5 class="text-xl font-medium text-gray-900 dark:text-white">
-            Sign in to our platform
+          <h5 class="text-xl flex font-medium text-slate-900 dark:text-white">
+            Sign in to{" "}
+            <Link to={"/"} className="text-lg font-bold px-2 bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent">
+              WIDEREACH
+            </Link>
           </h5>
           <div>
             <label
               for="email"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              class="block mb-2 text-sm font-medium text-slate-900 dark:text-white"
             >
               Your email
             </label>
@@ -21,7 +24,7 @@ const Login = () => {
           <div>
             <label
               for="password"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              class="block mb-2 text-sm font-medium text-slate-900 dark:text-white"
             >
               Your password
             </label>
@@ -34,13 +37,13 @@ const Login = () => {
                   id="remember"
                   type="checkbox"
                   value=""
-                  class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+                  class="w-4 h-4 border border-slate-300 rounded bg-slate-50 focus:ring-3 focus:ring-blue-300 dark:bg-slate-700 dark:border-slate-600 dark:focus:ring-blue-600 dark:ring-offset-slate-800 dark:focus:ring-offset-slate-800"
                   required
                 />
               </div>
               <label
                 for="remember"
-                class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                class="ms-2 text-sm font-medium text-slate-900 dark:text-slate-300"
               >
                 Remember me
               </label>
@@ -61,9 +64,9 @@ const Login = () => {
               Login to your account
             </button>
             <div className="flex items-center justify-center space-x-2">
-              <hr className="w-1/3 border-gray-300 dark:border-gray-600" />
-              <p className="text-gray-400 dark:text-gray-500">OR</p>
-              <hr className="w-1/3 border-gray-300 dark:border-gray-600" />
+              <hr className="w-1/3 border-slate-300 dark:border-slate-600" />
+              <p className="text-slate-400 dark:text-slate-500">OR</p>
+              <hr className="w-1/3 border-slate-300 dark:border-slate-600" />
             </div>
             <button
               type="submit"
@@ -73,7 +76,7 @@ const Login = () => {
               Login with <i class="fa fa-google px-2"></i>
             </button>
           </div>
-          <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+          <div class="text-sm font-medium text-slate-500 dark:text-slate-300">
             Not registered?{" "}
             <Link
               to={"/auth/signup"}

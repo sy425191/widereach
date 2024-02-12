@@ -3,10 +3,11 @@ import LandingAccordian from "../components/landing/accordian.js";
 import FeatureCard from "../components/landing/featureCard.js";
 import HowToStepper from "../components/landing/howToStepper.js";
 import WhyCard from "../components/landing/whyCard.js";
+import MouseShadowComponent from "../components/lib/mouseShadow.js";
 
 const LandingPage = () => {
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full relative">
       <LandingNavbar />
 
       <div className="w-full flex justify-center items-center mt-16">
@@ -91,6 +92,7 @@ const LandingPage = () => {
       </div>
 
       <div className="">ok</div>
+      <MouseShadowComponent context={document} />
     </div>
   );
 };
