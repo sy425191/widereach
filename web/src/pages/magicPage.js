@@ -34,10 +34,10 @@ const MagicCenter = () => {
     }
     const fileSize = selectedVideo.size / 1024 / 1024; // Convert to MB
 
-    if (fileSize > 15) {
-      alert("Please select a video file smaller than 15MB.");
-      return;
-    }
+    // if (fileSize > 15) {
+    //   alert("Please select a video file smaller than 15MB.");
+    //   return;
+    // }
 
     setMultiSelectFormPage(3);
     setLoading(true);

@@ -7,7 +7,7 @@ import MouseShadowComponent from "../components/lib/mouseShadow.js";
 
 const LandingPage = () => {
   return (
-    <div className="w-full h-full relative">
+    <div className="w-full h-full relative overflow-x-hidden">
       <LandingNavbar />
 
       <div className="w-full flex justify-center items-center mt-16">
@@ -16,33 +16,31 @@ const LandingPage = () => {
             Your
             <i className="fa fa-instagram text-4xl text-pink-500 mx-2"></i>
             Reels can be
-            <span className="text-5xl font-extrabold px-3 py-1 rounded tracking-wider mx-2 bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent">
-              Interactive
-            </span>
-            <span className="absolute text-slate-400 px-3 py-1 rounded tracking-wider mx-2 bg-gradient-to-r from-slate-900 to-slate-700 rotate-12 line-through decoration-3 decoration-slate-300">
-              Boring
-            </span>
-            <br />
+            <div className="relative mb-2">
+              <span className="text-5xl font-extrabold px-3 py-1 rounded tracking-wider mx-2 bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent">
+                Interactive
+              </span>
+            </div>
             with the power of AI
           </h1>
           <p className="text-center text-slate-300 mt-5">
-            Build interactive reels and engage your audience with Widereach.
+            Edit your reels with our AI engine and make them interactive.
           </p>
         </div>
       </div>
 
-      <div className="w-full flex justify-center items-center gap-x-24 mt-32 mb-24 select-none">
+      <div className="w-full flex flex-col gap-y-24 md:flex-row justify-center items-center gap-x-24 mt-32 mb-24 select-none">
         <FeatureCard
-          title="AI Subtitles"
-          description="Our AI engine will automatically detect the objects in your reels and make them interactive."
+          title="AI Transcript"
+          description="Our AI engine will automatically generate the transcript of your reels."
         />
         <FeatureCard
           title="In-Built Editor"
-          description="Our AI engine will automatically detect the objects in your reels and make them interactive."
+          description="You can edit your reels with our in-built editor with ease. No need to use any other software."
         />
         <FeatureCard
           title="Multi-Lang"
-          description="Our AI engine will automatically detect the objects in your reels and make them interactive."
+          description="Supports multiple languages. You can add Transcripts in multiple languages."
         />
       </div>
 

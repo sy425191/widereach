@@ -12,7 +12,7 @@ const DashboardSidebar = () => {
           <div className="flex-1 px-3">
             <div className="text-sm font-semibold">Saurabh's Organi..</div>
             <div className="text-xs text-slate-300">
-              Digital Content Creto...
+              Digital Content Creato...
             </div>
           </div>
           <div
@@ -55,20 +55,36 @@ const DashboardSidebar = () => {
           </Link>
         </div>
 
+        <NavLink
+          end
+          to={"/dashboard"}
+          className={({ isActive }) =>
+            "flex justify-between items-center px-1 py-4 mt-3 rounded cursor-pointer " +
+            (isActive ? "bg-slate-600" : "bg-slate-900")
+          }
+        >
+          <div className="size-8 flex justify-center items-center rounded">
+            <i className="fa fa-plus"></i>
+          </div>
+          <div className="flex-1 px-3 text-sm font-semibold text-slate-200">
+            Magic Center
+          </div>
+        </NavLink>
+
         <div className="flex flex-col w-full mt-8 space-y-2">
           <NavLink
             end
-            to={"/dashboard"}
+            to={"/dashboard/calendar"}
             className={({ isActive }) =>
               "flex justify-between items-center px-1 py-2 rounded cursor-pointer " +
               (isActive ? "bg-slate-600" : "bg-slate-900")
             }
           >
             <div className="size-8 flex justify-center items-center rounded">
-              <i className="fa fa-puzzle-piece"></i>
+              <i className="fa fa-calendar"></i>
             </div>
             <div className="flex-1 px-3 text-sm font-semibold text-slate-300">
-              Magic Center
+              Calendar
             </div>
           </NavLink>
           <NavLink
@@ -96,7 +112,7 @@ const DashboardSidebar = () => {
               <i className="fa fa-credit-card"></i>
             </div>
             <div className="flex-1 px-3 text-sm font-semibold text-slate-300">
-              Payment
+              Plan & Billing
             </div>
           </NavLink>
         </div>

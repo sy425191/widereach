@@ -4,17 +4,17 @@ import {
   AudioConfig,
   SpeechRecognizer,
 } from "microsoft-cognitiveservices-speech-sdk";
-import { compareText } from "../utils/subtitleAlgorithms.js";
+import { CheckAndInsertInArray, NormalizeSubtitle } from "../utils/subtitleAlgorithms.js";
 
 export function AudioTranscription(file_name, language = "en-US") {
   return new Promise((resolve, reject) => {
-    const recognizedSpeech = []; // { text: string, offset: number, duration: number }[]
-    let prevRecognizedSpeech = {};
+    const recognizedSpeech = []; // { text: string, offset: number, duration: number, start: number, end: number }
 
     const speechConfig = SpeechConfig.fromSubscription(
       process.env.SPEECH_KEY,
       process.env.SPEECH_REGION
     );
+
     speechConfig.speechRecognitionLanguage = language;
     speechConfig.requestWordLevelTimestamps();
 
@@ -26,28 +26,7 @@ export function AudioTranscription(file_name, language = "en-US") {
       const offset = e.result.offset;
       const duration = e.result.duration;
 
-      const { result, isMatching } = await compareText(
-        prevRecognizedSpeech.text,
-        text
-      );
-
-      const currWord = result;
-      let currDuration = duration;
-      let currOffset = offset;
-      if (isMatching) {
-        currDuration = duration - prevRecognizedSpeech.duration;
-        currOffset =
-          prevRecognizedSpeech.offset + prevRecognizedSpeech.duration;
-      }
-      console.log(currWord);
-      recognizedSpeech.push({
-        text: currWord,
-        offset: currOffset,
-        duration: currDuration,
-      });
-
-      const recognizedSpeechInstance = { text, offset, duration };
-      prevRecognizedSpeech = recognizedSpeechInstance;
+      CheckAndInsertInArray(e.result, recognizedSpeech);
     };
 
     speechRecognizer.recognized = (s, e) => {
@@ -61,8 +40,6 @@ export function AudioTranscription(file_name, language = "en-US") {
     speechRecognizer.canceled = (s, e) => {
       console.log(`CANCELED: Reason=${e.reason}`);
 
-      resolve(recognizedSpeech);
-
       if (e.reason == sdk.CancellationReason.Error) {
         console.log(`"CANCELED: ErrorCode=${e.errorCode}`);
         console.log(`"CANCELED: ErrorDetails=${e.errorDetails}`);
@@ -74,9 +51,11 @@ export function AudioTranscription(file_name, language = "en-US") {
       speechRecognizer.stopContinuousRecognitionAsync();
     };
 
-    speechRecognizer.sessionStopped = (s, e) => {
+    speechRecognizer.sessionStopped = async (s, e) => {
       console.log("\n    Session stopped event.");
       speechRecognizer.stopContinuousRecognitionAsync();
+      await NormalizeSubtitle(recognizedSpeech);
+      resolve(recognizedSpeech);
     };
 
     speechRecognizer.startContinuousRecognitionAsync();

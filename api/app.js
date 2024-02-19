@@ -40,14 +40,6 @@ app.post("/api", upload.single("file"), async (req, res) => {
     audioOutput,
   });
 
-  // delete the video file after extracting audio
-  // unlink(videoSource, (err) => {
-  //   if (err) {
-  //     console.error(err);
-  //     return;
-  //   }
-  // });
-
   // convert the audio to .wav format if it is not using fluent-ffmpeg
   if (videoMetadata.audioFileExtension !== "wav") {
     Ffmpeg(audioOutput)

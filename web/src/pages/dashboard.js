@@ -10,7 +10,7 @@ const Dashboard = () => {
       </div>
       <div className="h-full w-full flex-1 overflow-y-auto p-3">
         <Outlet />
-      </div>
+      </div> 
     </div>
   );
 };

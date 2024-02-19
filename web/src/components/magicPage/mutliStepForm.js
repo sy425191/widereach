@@ -31,7 +31,7 @@ const MultiStepForm = ({
         <div
           className="absolute group text-slate-300 bg-slate-900 font-semibold min-w-96 min-h-52 cursor-pointer flex justify-center items-center rounded
               transition-all duration-300 ease-in-out transform hover:scale-105
-              overflow-hidden transition-all duration-300 ease-in-out transform scale-0 origin-top border-4 border-purple-800"
+              overflow-hidden transition-all duration-300 ease-in-out transform scale-0 origin-top border-4 border-slate-400 hover:border-slate-300"
           style={{
             transform: multiSelectFormPage === 0 ? "scale(1)" : "scale(0)",
           }}
@@ -46,7 +46,7 @@ const MultiStepForm = ({
               setSelectedVideo(e.target.files[0]);
             }}
           />
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center p-5">
             <div className="flex">
               <FileSelectPause />
               <FileSelectAdd />
@@ -61,12 +61,12 @@ const MultiStepForm = ({
                   <i className="fa fa-check ml-2"></i>
                 </div>
               ) : (
-                <>
-                  <div className="text-lg text-slate-400 group-hover:scale-105 duration-100">
+                <div className="">
+                  <div className="text-xl text-slate-300">
                     Upload Video
                   </div>
                   <div className="text-xs text-slate-400">or drag and drop</div>
-                </>
+                </div>
               )}
             </div>
           </div>

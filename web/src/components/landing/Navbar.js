@@ -13,7 +13,7 @@ const LandingNavbar = () => {
           Widereach
         </Link>
         <Link
-          to="#about"
+          to="about"
           className="px-2 py-2 rounded duration-100 hover:bg-slate-300 hover:text-slate-900"
         >
           About
