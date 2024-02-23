@@ -8,6 +8,7 @@ import { ColorSelect } from "./colorSelect";
 
 const StyleEditor = () => {
   const [styleEditorTab, setStyleEditorTab] = useState(0);
+  const [presetStyleTab, setPresetStyleTab] = useState(0);
   const editorContext = useContext(EditorContext);
 
   return (

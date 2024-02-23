@@ -85,4 +85,3 @@ Please adhere to this project's `code of conduct`.
 **Server:** Node, Express
 
 **Database:** Prisma, Supabase (Planned)
-

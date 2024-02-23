@@ -32,10 +32,6 @@ const TimelinePlayer = () => {
     if (!editorContext.timeLineState.current) return;
     const engine = editorContext.timeLineState.current;
 
-    editorContext.videoPlayerRef.current.addEventListener("ended", () => {
-      editorContext.pauseVideo();
-    });
-
     return () => {
       if (!engine) return;
       engine.pause();

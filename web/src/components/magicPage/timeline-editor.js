@@ -1,68 +1,53 @@
-import { Timeline } from "@xzdarcy/react-timeline-editor";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { EditorContext } from "../../context/editorContext";
 
 export const TimelineEditor = () => {
   const editorContext = useContext(EditorContext);
 
-  const editorData = [
-    {
-      id: "1",
-      actions: editorContext.actions,
-    },
-  ];
+  const perSecondLength = 400;
+  const duration = editorContext.videoPlayerRef.current?.duration;
 
   return (
-    <Timeline
-      editorData={editorData}
-      effects={{}}
-      style={{
-        width: "100%",
-        height: "100%",
-        top: 0,
-        left: 0,
-        backgroundColor: "#0F172A",
-      }}
-      ref={editorContext.timeLineState}
-      autoScroll={true}
-      minScaleCount={5}
-      maxScaleCount={60}
-      scale={1}
-      onChange={(data) => {
-        const newSubtitle = data[0].actions.map((action) => {
-          return {
-            text: action.text,
-            offset: action.start * 10000000,
-            duration: (action.end - action.start) * 10000000,
-          };
-        });
-        editorContext.setSubtitle(newSubtitle);
-        console.log(data[0].actions);
-      }}
-      reRender={true}
-      getActionRender={(action, index) => {
-        return (
-          <div
-            key={index}
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              backgroundColor: "rgba(255, 255, 255, 0.1)",
-              borderRadius: "5px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              fontSize: "11px",
-              cursor: "pointer",
-            }}
-          >
-            {action.text}
-          </div>
-        );
-      }}
-    />
+    <div className="flex-1 flex flex-col justify-center pt-4 px-3 no-scrollbar bg-slate-900 overflow-x-auto">
+      <div
+        className="relative h-12 bg-slate-700/60 rounded"
+        style={{
+          width: `${duration * perSecondLength}px`,
+        }}
+      >
+        <div className="absolute w-full h-0.5 bg-slate-600 -top-4 left-0">
+          {[...Array((parseInt(duration) || 1) + 1)].map((x, i) => {
+            return (
+              <div key={i}>
+                <div
+                  className="absolute h-3 w-0.5 bg-slate-600"
+                  style={{ left: i * perSecondLength }}
+                ></div>
+
+                {[...Array(10)].map((xx, ii) => {
+                  return (
+                    <div
+                      className="absolute h-2 w-0.5 bg-slate-600"
+                      style={{
+                        left: i * perSecondLength + ii * (perSecondLength / 10),
+                      }}
+                    ></div>
+                  );
+                })}
+
+                <div
+                  className="absolute text-xs text-slate-400 -top-4 "
+                  style={{ left: i * perSecondLength }}
+                >
+                  {i}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div className="absolute w-1 h-14 -top-2 bg-purple-800 cursor-col-resize"></div>
+        ok
+      </div>
+    </div>
   );
 };

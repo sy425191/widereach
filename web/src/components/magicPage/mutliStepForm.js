@@ -29,9 +29,9 @@ const MultiStepForm = ({
     >
       <div className="flex flex-col justify-center items-center space-y-4 relative">
         <div
-          className="absolute group text-slate-300 bg-slate-900 font-semibold min-w-96 min-h-52 cursor-pointer flex justify-center items-center rounded
+          className="absolute group text-slate-300 bg-slate-900 font-semibold min-w-96 min-h-52 cursor-pointer flex justify-center items-center rounded-xl
               transition-all duration-300 ease-in-out transform hover:scale-105
-              overflow-hidden transition-all duration-300 ease-in-out transform scale-0 origin-top border-4 border-slate-400 hover:border-slate-300"
+              overflow-hidden transition-all duration-300 ease-in-out transform scale-0 origin-top border-4 border-slate-800 hover:border-slate-700"
           style={{
             transform: multiSelectFormPage === 0 ? "scale(1)" : "scale(0)",
           }}
@@ -47,34 +47,40 @@ const MultiStepForm = ({
             }}
           />
           <div className="flex flex-col items-center p-5">
-            <div className="flex">
-              <FileSelectPause />
-              <FileSelectAdd />
-              <FileSelectPlay />
-            </div>
-            <div className="w-full flex flex-col items-center my-2">
-              {selectedVideo ? (
-                <div className="">
-                  {selectedVideo.name.length > 20
-                    ? selectedVideo.name.slice(0, 20) + "..."
-                    : selectedVideo.name}
-                  <i className="fa fa-check ml-2"></i>
-                </div>
-              ) : (
-                <div className="">
-                  <div className="text-xl text-slate-300">
-                    Upload Video
+            {selectedVideo ? (
+              <>
+                <div className="w-full flex flex-col items-center my-2">
+                  <div className="">
+                    {selectedVideo.name.length > 20
+                      ? selectedVideo.name.slice(0, 20) + "..."
+                      : selectedVideo.name}
+                    <i className="fa fa-check ml-2"></i>
                   </div>
-                  <div className="text-xs text-slate-400">or drag and drop</div>
                 </div>
-              )}
-            </div>
+              </>
+            ) : (
+              <>
+                <div className="flex">
+                  <FileSelectPause />
+                  <FileSelectAdd />
+                  <FileSelectPlay />
+                </div>
+                <div className="w-full flex flex-col items-center my-2">
+                  <div className="">
+                    <div className="text-xl text-slate-300">Upload Video</div>
+                    <div className="text-xs text-slate-400">
+                      or drag and drop
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
         <div
-          className="absolute text-slate-300 bg-slate-900 font-semibold min-w-96 h-36 flex flex-col justify-evenly items-center rounded
-            overflow-hidden transition-all duration-300 ease-in-out transform scale-0 origin-top border-4 border-purple-800"
+          className="absolute text-slate-300 bg-slate-900 font-semibold min-w-96 h-36 flex flex-col justify-evenly items-center rounded-xl
+            overflow-hidden transition-all duration-300 ease-in-out transform scale-0 origin-top border-4 border-slate-800"
           style={{
             transform: multiSelectFormPage === 1 ? "scale(1)" : "scale(0)",
           }}
@@ -109,7 +115,7 @@ const MultiStepForm = ({
 
         <div
           className="absolute text-slate-300 bg-slate-900 font-semibold min-w-96 h-36 flex flex-col justify-evenly items-center rounded
-          overflow-hidden transition-all duration-300 ease-in-out transform scale-0 origin-top border-4 border-purple-800"
+          overflow-hidden transition-all duration-300 ease-in-out transform scale-0 origin-top border-4 border-slate-800"
           style={{
             transform: multiSelectFormPage === 2 ? "scale(1)" : "scale(0)",
           }}

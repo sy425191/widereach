@@ -1,5 +1,5 @@
 import LandingNavbar from "../components/landing/Navbar.js";
-import LandingAccordian from "../components/landing/accordian.js";
+import AccordianBuilder from "../components/landing/accordianBuilder.js";
 import FeatureCard from "../components/landing/featureCard.js";
 import WhoCard from "../components/landing/whoCard.js";
 
@@ -13,17 +13,22 @@ const LandingPage = () => {
           <h1 className="text-3xl text-slate-300 font-bold text-center">
             Level up your
             <i className="fa fa-instagram text-4xl text-pink-500 mx-2"></i>
-            Reel with the power of AI to
+            Reel with Widereach's
             <div className="relative mb-2">
-              <span className="text-5xl font-extrabold px-3 py-1 rounded tracking-wider mx-2 bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent">
-                Widereach
+              <span className="text-5xl uppercase font-extrabold px-3 py-1 rounded tracking-wider mx-2 bg-gradient-to-r from-pink-500 to-violet-700 bg-clip-text text-transparent">
+                AI for Reel Creators
               </span>
             </div>
-            to make them interactive.
           </h1>
           <p className="text-center text-slate-300 mt-5">
-            Edit your reels with our AI engine and make them interactive.
+            Edit your reels quickly with our AI engine.
           </p>
+
+          <div className="py-4 mt-4 flex justify-center gap-x-3">
+            <input type="email" className="w-full md:w-96 outline-none bg-transparent border-2 border-purple-600 rounded px-3 py-2" placeholder="Email" />
+            <button className="bg-purple-800 px-3 rounded">Get Started
+            </button>
+          </div>
         </div>
       </div>
 
@@ -71,11 +76,9 @@ const LandingPage = () => {
       </div>
       <div className="w-full relative mb-24 flex flex-col items-center">
         <div className="text-3xl text-slate-300 font-bold text-center mb-8">
-          How to Use
+          Open Source?
         </div>
-        <div className="mx-4 w-1/2 flex items-center justify-center mt-5 text-slate-300">
-         
-        </div>
+        <div className="mx-4 w-1/2 flex items-center justify-center mt-5 text-slate-300"></div>
       </div>
 
       <div className="w-full relative mb-24 flex flex-col items-center">
@@ -83,10 +86,22 @@ const LandingPage = () => {
           FAQ
         </div>
         <div className="mx-4 w-1/2 flex items-center justify-center mt-5 text-slate-300">
-          <LandingAccordian />
+          <AccordianBuilder
+            content={[
+              {
+                heading: "What is Testing?",
+                paragraph:
+                  "lorem dollar ipsum lorem dollar ipsumlorem dollar ipsum lorem dollar ipsum lorem dollar ipsum lorem dollar ipsum",
+              },
+              {
+                heading: "What is Testing?",
+                paragraph:
+                  "lorem dollar ipsum lorem dollar ipsumlorem dollar ipsum lorem dollar ipsum lorem dollar ipsum lorem dollar ipsum",
+              },
+            ]}
+          />
         </div>
       </div>
-
     </div>
   );
 };

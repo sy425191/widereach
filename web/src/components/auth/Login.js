@@ -76,15 +76,6 @@ const Login = () => {
               Login with <i class="fa fa-google px-2"></i>
             </button>
           </div>
-          <div class="text-sm font-medium text-slate-500 dark:text-slate-300">
-            Not registered?{" "}
-            <Link
-              to={"/auth/signup"}
-              class="text-blue-700 hover:underline dark:text-blue-500"
-            >
-              Create account
-            </Link>
-          </div>
         </form>
       </div>
     </>

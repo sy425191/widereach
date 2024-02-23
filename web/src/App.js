@@ -26,7 +26,7 @@ function App() {
                 <Route path="" element={<MagicCenter />} />
                 <Route path="calendar" element={<div> Home </div>} />
                 <Route path="videos" element={<MyVideosPage />} />
-                <Route path="plan" element={<div> Plan & Billing </div>} />
+                <Route path="plan" element={<div> Plan & Billing section will be activated soon </div>} />
               </Route>
             </Routes>
           </BrowserRouter>

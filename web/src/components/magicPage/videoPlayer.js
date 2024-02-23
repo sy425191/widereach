@@ -10,25 +10,17 @@ const VideoPlayer = ({ video }) => {
     <>
       <video
         ref={editorContext.videoPlayerRef}
-        className="absolute"
+        className="absolute z-10"
         onTimeUpdate={playerContext.handleTimeUpdate}
         style={{
           width: "auto",
           height: "100%",
           objectFit: "contain",
         }}
+        loop
       >
         <source src={URL.createObjectURL(video)} type="video/mp4" />
       </video>
-      <canvas
-        ref={editorContext.canvasRef}
-        className="absolute z-10 bg-slate-800 rounded-t-lg"
-        style={{
-          objectFit: "fill",
-        }}
-        width={editorContext.videoPlayerRef.current?.clientWidth || 0}
-        height={editorContext.videoPlayerRef.current?.clientHeight || 0}
-      />
 
       {editorContext.overLaySelected && (
         <div
@@ -59,7 +51,7 @@ const VideoPlayer = ({ video }) => {
         <div
           id="overlay-text"
           className={`absolute transform px-2 text-center rounded-lg user-select-none ${
-            editorContext.overLayText ? "block" : "hidden"
+            editorContext.overLayText ? "block" : "block"
           }
           ${editorContext.overLaySelected ? "cursor-move" : "cursor-pointer"}
           `}
@@ -83,7 +75,7 @@ const VideoPlayer = ({ video }) => {
             editorContext.setOverLaySelected(!editorContext.overLaySelected);
           }}
         >
-          {editorContext.overLayText}
+          {editorContext.overLayText} ok
         </div>
       </div>
     </>
