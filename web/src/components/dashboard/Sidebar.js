@@ -10,9 +10,9 @@ const DashboardSidebar = () => {
         <div className="text-slate-200 bg-slate-900 rounded px-1 py-2 flex justify-between items-center">
           <div className="size-8 bg-slate-950 rounded"></div>
           <div className="flex-1 px-3">
-            <div className="text-sm font-semibold">Saurabh's Organi..</div>
+            <div className="text-sm font-semibold">Widereach</div>
             <div className="text-xs text-slate-300">
-              Digital Content Creato...
+              Creator Dashboard
             </div>
           </div>
           <div
@@ -55,38 +55,24 @@ const DashboardSidebar = () => {
           </Link>
         </div>
 
-        <NavLink
-          end
-          to={"/dashboard"}
-          className={({ isActive }) =>
-            "flex justify-between items-center px-1 py-4 mt-3 rounded cursor-pointer " +
-            (isActive ? "bg-slate-600" : "bg-slate-900")
-          }
-        >
-          <div className="size-8 flex justify-center items-center rounded">
-            <i className="fa fa-plus"></i>
-          </div>
-          <div className="flex-1 px-3 text-sm font-semibold text-slate-200">
-            Magic Center
-          </div>
-        </NavLink>
-
-        <div className="flex flex-col w-full mt-8 space-y-2">
+        <div className="flex flex-col w-full mt-4 space-y-2">
           <NavLink
             end
-            to={"/dashboard/calendar"}
+            to={"/dashboard"}
             className={({ isActive }) =>
-              "flex justify-between items-center px-1 py-2 rounded cursor-pointer " +
+              "flex justify-between items-center px-1 py-4 mt-3 rounded cursor-pointer " +
               (isActive ? "bg-slate-600" : "bg-slate-900")
             }
           >
             <div className="size-8 flex justify-center items-center rounded">
-              <i className="fa fa-calendar"></i>
+              <i className="fa fa-plus"></i>
             </div>
-            <div className="flex-1 px-3 text-sm font-semibold text-slate-300">
-              Calendar
+            <div className="flex-1 px-3 text-sm font-semibold text-slate-200">
+              Magic Center
             </div>
           </NavLink>
+
+          
           <NavLink
             to={"/dashboard/videos"}
             className={({ isActive }) =>

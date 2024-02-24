@@ -1,11 +1,26 @@
+import { useRef } from "react";
 import LandingNavbar from "../components/landing/Navbar.js";
 import AccordianBuilder from "../components/landing/accordianBuilder.js";
 import FeatureCard from "../components/landing/featureCard.js";
 import WhoCard from "../components/landing/whoCard.js";
 
 const LandingPage = () => {
+  const emailInputRef = useRef();
+
   return (
     <div className="w-full h-full relative overflow-x-hidden">
+      <div className="w-full p-2 flex flex-col md:flex-row justify-center items-center gap-x-8 bg-blue-600">
+        <span className="text-xl">Beta Version is launched! 🚀</span>
+        <button
+          className="bg-slate-800 px-3 py-1 rounded"
+          onClick={() => {
+            emailInputRef.current?.focus();
+          }}
+        >
+          Get Early Access <i className="fa fa-chevron-right"></i>
+        </button>
+      </div>
+
       <LandingNavbar />
 
       <div className="w-full flex justify-center items-center mt-16">
@@ -25,9 +40,13 @@ const LandingPage = () => {
           </p>
 
           <div className="py-4 mt-4 flex justify-center gap-x-3">
-            <input type="email" className="w-full md:w-96 outline-none bg-transparent border-2 border-purple-600 rounded px-3 py-2" placeholder="Email" />
-            <button className="bg-purple-800 px-3 rounded">Get Started
-            </button>
+            <input
+              type="email"
+              className="w-full md:w-96 outline-none bg-transparent border-2 border-purple-600 rounded px-3 py-2"
+              placeholder="Email"
+              ref={emailInputRef}
+            />
+            <button className="bg-purple-800 px-3 rounded">Get Started</button>
           </div>
         </div>
       </div>
@@ -85,18 +104,18 @@ const LandingPage = () => {
         <div className="text-3xl text-slate-300 font-bold text-center mb-8">
           FAQ
         </div>
-        <div className="mx-4 w-1/2 flex items-center justify-center mt-5 text-slate-300">
+        <div className="mx-4 w-full md:w-1/2 flex items-center justify-center mt-5 text-slate-300">
           <AccordianBuilder
             content={[
               {
-                heading: "What is Testing?",
+                heading: "What is Frequently Asked Questions?",
                 paragraph:
-                  "lorem dollar ipsum lorem dollar ipsumlorem dollar ipsum lorem dollar ipsum lorem dollar ipsum lorem dollar ipsum",
+                  "This section will answer users most asked questions",
               },
               {
-                heading: "What is Testing?",
+                heading: "Do we still need any other video editing software?",
                 paragraph:
-                  "lorem dollar ipsum lorem dollar ipsumlorem dollar ipsum lorem dollar ipsum lorem dollar ipsum lorem dollar ipsum",
+                  "You'll get everything you need as a content creator on short video sharing platforms",
               },
             ]}
           />

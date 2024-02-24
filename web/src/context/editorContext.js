@@ -24,12 +24,55 @@ const EditorProvider = ({ children }) => {
 
   const [actions, setActions] = useState([]);
 
+  const [perSecondLength, setPerSecondLength] = useState(300);
+  const timelinePointerRef = useRef();
+  const timeLineWindowRef = useRef();
+
+  const [intervalID, setIntervalID] = useState(0);
+
+  const startTimeLine = function () {
+    const tempInterval = setInterval(() => {
+      if (timelinePointerRef.current) {
+        timelinePointerRef.current.style.left =
+          videoPlayerRef.current.currentTime * perSecondLength + "px";
+
+        if (
+          videoPlayerRef.current.currentTime * perSecondLength + 50 >
+          timeLineWindowRef.current.scrollLeft +
+            timeLineWindowRef.current.offsetWidth
+        ) {
+          timeLineWindowRef.current.scrollLeft =
+            videoPlayerRef.current.currentTime * perSecondLength +
+            50 -
+            timeLineWindowRef.current.offsetWidth;
+        } else if (
+          videoPlayerRef.current.currentTime * perSecondLength <
+          timeLineWindowRef.current.offsetWidth
+        ) {
+          if (
+            timeLineWindowRef.current.scrollLeft >
+            timeLineWindowRef.current.offsetWidth
+          ) {
+            timeLineWindowRef.current.scrollLeft = 0;
+          }
+        }
+      }
+    }, 1000 / 60);
+    setIntervalID(tempInterval);
+  };
+
+  const stopTimeLine = function () {
+    clearInterval(intervalID);
+  };
+
   const playVideo = () => {
     videoPlayerRef.current?.play();
+    startTimeLine();
   };
 
   const pauseVideo = () => {
     videoPlayerRef.current?.pause();
+    stopTimeLine();
   };
 
   return (
@@ -65,6 +108,9 @@ const EditorProvider = ({ children }) => {
         setOverLaySelected,
         actions,
         setActions,
+        timelinePointerRef,
+        timeLineWindowRef,
+        perSecondLength,
       }}
     >
       {children}
