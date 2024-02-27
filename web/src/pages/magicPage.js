@@ -51,7 +51,6 @@ const MagicCenter = () => {
     )
       .then((res) => {
         editorContext.setSubtitle(res);
-        editorContext.sendSubtitleToEditor(res);
       })
       .catch((err) => {
         editorContext.setSubtitle([]);

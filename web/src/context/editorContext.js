@@ -49,12 +49,7 @@ const EditorProvider = ({ children }) => {
           videoPlayerRef.current.currentTime * perSecondLength <
           timeLineWindowRef.current.offsetWidth
         ) {
-          if (
-            timeLineWindowRef.current.scrollLeft >
-            timeLineWindowRef.current.offsetWidth
-          ) {
-            timeLineWindowRef.current.scrollLeft = 0;
-          }
+          timeLineWindowRef.current.scrollLeft = 0;
         }
       }
     }, 1000 / 60);

@@ -8,12 +8,12 @@ const DashboardSidebar = () => {
     <div className="w-full h-full flex flex-col justify-between items-center px-2 py-4">
       <div className="w-full relative">
         <div className="text-slate-200 bg-slate-900 rounded px-1 py-2 flex justify-between items-center">
-          <div className="size-8 bg-slate-950 rounded"></div>
+          <div className="size-8 rounded">
+            <img src="widereach-nobg.png" alt="Widereach Logo" />
+          </div>
           <div className="flex-1 px-3">
             <div className="text-sm font-semibold">Widereach</div>
-            <div className="text-xs text-slate-300">
-              Creator Dashboard
-            </div>
+            <div className="text-xs text-slate-300">Creator Dashboard</div>
           </div>
           <div
             className={`size-8 rounded duration-200 flex justify-center items-center cursor-pointer hover:bg-slate-700 ${
@@ -72,7 +72,6 @@ const DashboardSidebar = () => {
             </div>
           </NavLink>
 
-          
           <NavLink
             to={"/dashboard/videos"}
             className={({ isActive }) =>
@@ -105,14 +104,7 @@ const DashboardSidebar = () => {
       </div>
 
       <div className="w-full h-28 bg-slate-900 text-slate-300 rounded p-3 flex flex-col justify-evenly items-center gap-y-2">
-        <div className="font-bold text-xl">Free Plan</div>
-        <div className="text-xs">
-          {" "}
-          <span className="font-bold text-xl">5</span> Credit Left
-        </div>
-        <div className="bg-rose-950 px-3 py-1 rounded text-xs cursor-pointer">
-          Upgrade
-        </div>
+        ok
       </div>
     </div>
   );

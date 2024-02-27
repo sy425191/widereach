@@ -55,6 +55,7 @@ const OverLayTextComponent = () => {
         width: editorContext.videoPlayerRef.current?.clientWidth || 0,
         height: editorContext.videoPlayerRef.current?.clientHeight || 0,
       }}
+      key={new Date().getTime()}
     >
       <div
         id="overlay-text"
@@ -62,6 +63,7 @@ const OverLayTextComponent = () => {
           editorContext.overLayText ? "block" : "block"
         }
           ${editorContext.overLaySelected ? "cursor-move" : "cursor-pointer"}
+          transition-all duration-300 ease-in-out transform scale-100 origin-top
           `}
         draggable={editorContext.overLaySelected ? true : false}
         onDragEnd={(e) => editorContext.setOverlayTextTop(e.clientY)}
@@ -78,13 +80,13 @@ const OverLayTextComponent = () => {
           backgroundColor: editorContext.overLaySelected
             ? "rgba(0,0,0,0.5)"
             : editorContext.bgColor,
-          WebkitTextStroke: "0.5px red"
+          WebkitTextStroke: "0.5px red",
         }}
         onClick={(e) => {
           editorContext.setOverLaySelected(!editorContext.overLaySelected);
         }}
       >
-        {editorContext.overLayText} ok
+        {editorContext.overLayText}
       </div>
     </div>
   );

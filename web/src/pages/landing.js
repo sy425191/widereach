@@ -3,6 +3,7 @@ import LandingNavbar from "../components/landing/Navbar.js";
 import AccordianBuilder from "../components/landing/accordianBuilder.js";
 import FeatureCard from "../components/landing/featureCard.js";
 import WhoCard from "../components/landing/whoCard.js";
+import LandingFooter from "../components/landing/footer.js";
 
 const LandingPage = () => {
   const emailInputRef = useRef();
@@ -121,6 +122,8 @@ const LandingPage = () => {
           />
         </div>
       </div>
+
+      <LandingFooter />
     </div>
   );
 };
