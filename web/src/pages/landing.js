@@ -32,7 +32,7 @@ const LandingPage = () => {
             Reel with Widereach's
             <div className="relative mb-2">
               <span className="text-5xl uppercase font-extrabold px-3 py-1 rounded tracking-wider mx-2 bg-gradient-to-r from-pink-500 to-violet-700 bg-clip-text text-transparent">
-                AI for Reel Creators
+                AI for Creators
               </span>
             </div>
           </h1>
