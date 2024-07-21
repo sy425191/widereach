@@ -7,8 +7,7 @@ import { FontFamilies } from "../../utils/constants";
 import { ColorSelect } from "./colorSelect";
 
 const StyleEditor = () => {
-  const [styleEditorTab, setStyleEditorTab] = useState(0);
-  const [presetStyleTab, setPresetStyleTab] = useState(0);
+  const [styleEditorTab, setStyleEditorTab] = useState(1);
   const editorContext = useContext(EditorContext);
 
   return (
@@ -17,20 +16,20 @@ const StyleEditor = () => {
         <div
           className="px-3 py-1 cursor-pointer hover:underline"
           style={
-            styleEditorTab === 0 ? { color: "#f0f0f0" } : { color: "#a0a0a0" }
-          }
-          onClick={() => setStyleEditorTab(0)}
-        >
-          Edit
-        </div>
-        <div
-          className="px-3 py-1 cursor-pointer hover:underline"
-          style={
             styleEditorTab === 1 ? { color: "#f0f0f0" } : { color: "#a0a0a0" }
           }
           onClick={() => setStyleEditorTab(1)}
         >
           Subtitle
+        </div>
+        <div
+          className="px-3 py-1 cursor-pointer hover:underline"
+          style={
+            styleEditorTab === 0 ? { color: "#f0f0f0" } : { color: "#a0a0a0" }
+          }
+          onClick={() => setStyleEditorTab(0)}
+        >
+          Edit
         </div>
       </div>
 
@@ -170,28 +169,25 @@ const StyleEditor = () => {
           </div>
         )}
 
-        {styleEditorTab === 1 &&
-          editorContext.subtitle?.map((sub, index) => (
-            <div
-              key={index}
-              className="flex flex-col bg-slate-800 px-1 py-0.5 text-slate-300 rounded cursor-pointer hover:bg-slate-700/80"
-              onClick={() => {
-                if (!editorContext.videoPlayerRef.current) return;
-                if (editorContext.videoPlayerRef.current.isPlaying) {
-                  editorContext.videoPlayerRef.current.pause();
-                }
-                editorContext.videoPlayerRef.current.currentTime =
-                  sub.offset / 10000000;
-              }}
-            >
-              <div className="text-xs text-slate-400">
-                <i className="fa fa-clock-o pr-2"></i>
-                {(sub.offset / 10000000).toFixed(2)} -{" "}
-                {((sub.offset + sub.duration) / 10000000).toFixed(2)}
+        <div className="flex flex-wrap gap-x-1 gap-y-1">
+          {styleEditorTab === 1 &&
+            editorContext.subtitle?.map((sub, index) => (
+              <div
+                key={index}
+                className="border-2 border-slate-800 px-1 text-slate-300 rounded-lg cursor-pointer hover:border-purple-800 hover:bg-purple-800 hover:shadow-md"
+                onClick={() => {
+                  if (!editorContext.videoPlayerRef.current) return;
+                  if (editorContext.videoPlayerRef.current.isPlaying) {
+                    editorContext.videoPlayerRef.current.pause();
+                  }
+                  editorContext.videoPlayerRef.current.currentTime =
+                    sub.start / 1000;
+                }}
+              >
+                <div className="text-sm">{sub.text}</div>
               </div>
-              <div className="text-sm">{sub.text}</div>
-            </div>
-          ))}
+            ))}
+        </div>
       </div>
     </div>
   );

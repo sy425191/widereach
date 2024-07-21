@@ -6,7 +6,7 @@ const GetSubtitle = async (file, language, shouldTranslate, translateTo) => {
   formData.append("language", language);
   formData.append("shouldTranslate", shouldTranslate);
   formData.append("translateTo", translateTo);
-  const res = await axios.post("/api", formData, {
+  const res = await axios.post("/subtitle", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },

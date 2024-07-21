@@ -1,5 +1,5 @@
 export const languageOptions = [
-  { value: "en-US", label: "English (United States)" },
+  { value: "en", label: "English (United States)" },
   { value: "en-GB", label: "English (United Kingdom)" },
   { value: "en-IN", label: "English (India)" },
   { value: "en-AU", label: "English (Australia)" },
@@ -81,7 +81,7 @@ export const languageOptions = [
   { value: "gl-ES", label: "Galician" },
   { value: "gu-IN", label: "Gujarati (India)" },
   { value: "he-IL", label: "Hebrew (Israel)" },
-  { value: "hi-IN", label: "Hindi (India)" },
+  { value: "hi", label: "Hindi (India)" },
   { value: "hr-HR", label: "Croatian (Croatia)" },
   { value: "hu-HU", label: "Hungarian (Hungary)" },
   { value: "hy-AM", label: "Armenian (Armenia)" },

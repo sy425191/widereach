@@ -11,10 +11,10 @@ const VideoPlayerProvider = ({ children }) => {
     let currentTime = video.currentTime;
     editorContext.setTime(currentTime);
     // convert time to ticks
-    currentTime = (currentTime + 0.2) * 10000000;
+    currentTime = (currentTime) * 1000;
     const currentLine = editorContext.subtitle?.find(
       (line) =>
-        line.offset <= currentTime && line.offset + line.duration >= currentTime
+        line.start <= currentTime && line.end >= currentTime
     );
 
     if (currentLine) {

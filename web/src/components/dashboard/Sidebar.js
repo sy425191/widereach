@@ -103,8 +103,24 @@ const DashboardSidebar = () => {
         </div>
       </div>
 
-      <div className="w-full h-28 bg-slate-900 text-slate-300 rounded p-3 flex flex-col justify-evenly items-center gap-y-2">
-        ok
+      <div className="w-full h-28 bg-slate-900 text-slate-300 rounded flex flex-col justify-evenly items-center gap-y-2">
+        <div className="flex-1">
+
+        </div>
+        <div className="w-full h-12 border-2 border-slate-800/50 flex items-center justify-between rounded">
+          <img
+            src="widereach-nobg.png"
+            alt="Widereach Logo"
+            className="size-8 rounded-full"
+          />
+          <div className="flex-1 px-3">
+            <div className="text-sm font-semibold">Saurabh Yadav</div>
+            <div className="text-xs">Free Plan</div>
+          </div>
+          <div className="size-8 rounded-full cursor-pointer flex justify-center items-center">
+            <i className="fa fa-ellipsis-v"></i>
+          </div>
+        </div>
       </div>
     </div>
   );

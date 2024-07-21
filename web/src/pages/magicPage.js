@@ -50,7 +50,7 @@ const MagicCenter = () => {
       translationLanguage.value
     )
       .then((res) => {
-        editorContext.setSubtitle(res);
+        editorContext.setSubtitle(res.transcript);
       })
       .catch((err) => {
         editorContext.setSubtitle([]);
