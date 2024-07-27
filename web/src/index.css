@@ -26,3 +26,12 @@
   background-color: darkgrey;
   outline: 1px solid slategrey;
 }
+
+
+#overlay-text b{
+  background-color: yellow !important;
+  color: black !important;
+  padding: 0 0.2rem !important;
+  border-radius: 0.2rem !important;
+
+}

@@ -6,6 +6,8 @@ import { TranscribeProject } from "../controllers/subtitle.controller.js";
 import { extractAudio, getVideoMetadata } from "@remotion/renderer";
 import { v2 as cloudinary } from "cloudinary";
 import { Ffmpeg } from "../utils/ffmpeg.js";
+import { RefineResultsWithAI } from "../utils/geminiAI.js";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const subtileRoute = Router();
 
@@ -56,6 +58,14 @@ subtileRoute.post("", upload.single("file"), async (req, res) => {
             const words = transcript.words;
             const auto_highlights_result = transcript.auto_highlights_result;
 
+            const genAI = new GoogleGenerativeAI(process.env.GENAI_API_KEY);
+
+            const model = genAI.getGenerativeModel({
+              model: "gemini-1.5-flash",
+            });
+
+            const refinedWords = await RefineResultsWithAI(words, model);
+
             unlink(audioOutput, (err) => {
               if (err) {
                 console.error(err);
@@ -63,7 +73,7 @@ subtileRoute.post("", upload.single("file"), async (req, res) => {
               }
             });
             res.status(200).json({
-              transcript: words,
+              transcript: refinedWords,
               auto_highlights_result: auto_highlights_result,
             });
           }

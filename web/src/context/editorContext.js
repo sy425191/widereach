@@ -1,10 +1,12 @@
 import { createContext, useRef, useState } from "react";
+import etro from "etro";
 
 const EditorContext = createContext();
 
 const EditorProvider = ({ children }) => {
   const timeLineState = useRef();
   const videoPlayerRef = useRef(null);
+  const [selectedVideo, setSelectedVideo] = useState(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [time, setTime] = useState(0); // in seconds
   const [overLayText, setOverLayText] = useState("");
@@ -14,7 +16,6 @@ const EditorProvider = ({ children }) => {
 
   const [textColor, setTextColor] = useState("#ffffff");
   const [bgColor, setBgColor] = useState("transparent");
-  const [strokeColor, setStrokeColor] = useState("none");
   const [textSize, setTextSize] = useState("20"); // in px
   const [fontBold, setFontBold] = useState("bold"); // 400, 600, 700, 800
   const [fontFamily, setFontFamily] = useState("Arial");
@@ -70,6 +71,52 @@ const EditorProvider = ({ children }) => {
     stopTimeLine();
   };
 
+  const downloadVideo = () => {
+    const canvas = document.createElement("canvas");
+
+    const htmlVideo = document.createElement("video");
+    htmlVideo.src = URL.createObjectURL(selectedVideo);
+
+    const movie = new etro.Movie({
+      canvas,
+    });
+    movie.width = videoPlayerRef.current.videoWidth;
+    movie.height = videoPlayerRef.current.videoHeight;
+    const BaseVideolayer = new etro.layer.Video({
+      startTime: 0,
+      source: htmlVideo,
+    });
+
+    movie.layers.push(BaseVideolayer);
+
+    subtitle.forEach((sub) => {
+      const textLayer = new etro.layer.Text({
+        text: sub.text.replace(/<\/?b>/g, ""),
+        startTime: sub.start / 1000,
+        duration: (sub.end - sub.start) / 1000,
+        font: "70px sans-serif",
+        textX: videoPlayerRef.current.videoWidth / 2,
+        textY: videoPlayerRef.current.videoHeight - 100,
+        textAlign: "center",
+      });
+      movie.layers.push(textLayer);
+    });
+
+    movie
+      .record({
+        frameRate: 30,
+      })
+      .then((blob) => {
+        // download the video blob
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "etro.mp4";
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+  };
+
   return (
     <EditorContext.Provider
       value={{
@@ -106,6 +153,9 @@ const EditorProvider = ({ children }) => {
         timelinePointerRef,
         timeLineWindowRef,
         perSecondLength,
+        downloadVideo,
+        selectedVideo,
+        setSelectedVideo,
       }}
     >
       {children}

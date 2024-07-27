@@ -1,10 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useRef } from "react";
 import { EditorContext } from "../../context/editorContext";
 import { VideoPlayerContext } from "../../context/videoPlayerContext";
 
 const VideoPlayer = ({ video }) => {
   const editorContext = useContext(EditorContext);
   const playerContext = useContext(VideoPlayerContext);
+
+  const overLayRef = useRef(null);
 
   return (
     <>
@@ -24,29 +26,32 @@ const VideoPlayer = ({ video }) => {
 
       {editorContext.overLaySelected && (
         <div
-          className="mx-1 absolute flex justify-center overflow-hidden z-20 bg-pink-300/30"
+          className="mx-1 absolute flex justify-center overflow-hidden z-20 bg-slate-300/50"
           style={{
             width: editorContext.videoPlayerRef.current?.clientWidth || 0,
             height: editorContext.videoPlayerRef.current?.clientHeight || 0,
           }}
         >
           {/* vertical and horizonal lines */}
-          <div className="absolute w-0.5 h-full bg-rose-50" />
+          <div className="absolute border-[1px] border-dashed h-full border-slate-950" />
           <div
-            className="absolute w-full h-0.5 bg-rose-50"
+            className="absolute w-full border-[1px] border-dashed border-slate-950"
             style={{
-              top: editorContext.overlayTextTop + "px",
+              top:
+                parseInt(editorContext.overlayTextTop) +
+                parseInt(overLayRef.current?.clientHeight / 2) +
+                "px",
             }}
           />
         </div>
       )}
 
-      <OverLayTextComponent />
+      <OverLayTextComponent overLayRef={overLayRef} />
     </>
   );
 };
 
-const OverLayTextComponent = () => {
+const OverLayTextComponent = ({ overLayRef }) => {
   const editorContext = useContext(EditorContext);
   return (
     <div
@@ -66,7 +71,14 @@ const OverLayTextComponent = () => {
           transition-all duration-300 ease-in-out transform scale-100 origin-top
           `}
         draggable={editorContext.overLaySelected ? true : false}
-        onDragEnd={(e) => editorContext.setOverlayTextTop(e.clientY)}
+        onDragEnd={(e) => {
+          const finalTop = e.clientY - overLayRef.current.clientHeight;
+          if (finalTop < 10) {
+            editorContext.setOverlayTextTop("100");
+          } else {
+            editorContext.setOverlayTextTop(finalTop);
+          }
+        }}
         style={{
           color: editorContext.textColor,
           fontSize: `${editorContext.textSize}px`,
@@ -82,12 +94,12 @@ const OverLayTextComponent = () => {
             : editorContext.bgColor,
           WebkitTextStroke: "0.5px red",
         }}
+        ref={overLayRef}
         onClick={(e) => {
           editorContext.setOverLaySelected(!editorContext.overLaySelected);
         }}
-      >
-        {editorContext.overLayText}
-      </div>
+        dangerouslySetInnerHTML={{ __html: editorContext.overLayText }}
+      ></div>
     </div>
   );
 };

@@ -184,7 +184,7 @@ const StyleEditor = () => {
                     sub.start / 1000;
                 }}
               >
-                <div className="text-sm">{sub.text}</div>
+                <div className="text-sm">{sub.text.replace(/<\/?b>/g, "")}</div>
               </div>
             ))}
         </div>

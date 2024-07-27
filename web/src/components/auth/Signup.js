@@ -1,10 +1,17 @@
 import { Link } from "react-router-dom";
 import InputBox from "./InputBox";
+import { useState } from "react";
 
 const SignUp = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignup = () => {
+    alert(`Email: ${email}, Password: ${password}`);
+  };
   return (
     <div class="w-full max-w-sm p-4 bg-white border border-slate-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-slate-800/30 dark:border-slate-700/30">
-      <form class="space-y-6" action="#">
+      <form class="space-y-6" onSubmit={() => handleSignup()}>
         <h5 class="text-xl flex font-medium text-slate-900 dark:text-white">
           Welcome to{" "}
           <Link
@@ -21,7 +28,13 @@ const SignUp = () => {
           >
             Your email
           </label>
-          <InputBox icon="user" type="email" placeholder="Email" />
+          <InputBox
+            icon="user"
+            type="email"
+            placeholder="Email"
+            value={email}
+            handleChange={setEmail}
+          />
         </div>
         <div>
           <label
@@ -30,9 +43,15 @@ const SignUp = () => {
           >
             Your password
           </label>
-          <InputBox icon="key" type="password" placeholder="Password" />
+          <InputBox
+            icon="key"
+            type="password"
+            placeholder="Password"
+            value={password}
+            handleChange={setPassword}
+          />
         </div>
-        
+
         <div className="flex flex-col space-y-4">
           <button
             type="submit"

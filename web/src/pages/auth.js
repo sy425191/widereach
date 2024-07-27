@@ -1,14 +1,13 @@
-import { Link, Outlet } from "react-router-dom";
-import MouseShadowComponent from "../components/lib/mouseShadow";
+import { Outlet } from "react-router-dom";
 import FeatureBox from "../components/auth/featureBox";
 
 const AuthScreen = () => {
   return (
     <div className="w-full h-screen flex py-3 relative overflow-hidden">
-      <div className="h-full flex flex-col items-center justify-center space-y-4 w-3/4 border-r-2 border-slate-900">
+      <div className="h-full flex flex-col items-center justify-center space-y-4 w-full md:w-3/4 border-r-2 border-slate-900">
         <Outlet />
       </div>
-      <div className="flex-1 flex flex-col items-center justify-between px-2">
+      <div className="flex-1 hidden md:flex flex-col items-center justify-between px-2">
         <div className="select-none">
           <img
             className="w-full -z-10 invert rounded-full shadow-2xl h-32"

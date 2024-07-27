@@ -1,18 +1,20 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/useAuth";
 
 const LandingNavbar = () => {
+  const auth = useAuth();
   return (
     <div className="w-full flex justify-center pb-10">
       <div className="w-full flex gap-x-3 justify-between items-center sticky-top-0 rounded bg-slate-800 font-semibold text-slate-300 py-2">
         <div>
           <Link
             to="/"
-            className="px-2 py-2 rounded duration-100 font-bold text-2xl flex gap-x-1
+            className="flex px-2 py-2 rounded duration-100 font-bold text-2xl gap-x-1
         tracking-wider mx-2 bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent
         "
           >
             <img src="/widereach-nobg.png" alt="Widereach" className="h-8" />
-            Widereach
+            <span className="hidden md:flex">Widereach</span>
           </Link>
         </div>
         <div className="flex md:gap-x-8 md:px-4">
@@ -26,10 +28,7 @@ const LandingNavbar = () => {
             to="#pricing"
             className="relative px-2 mr-5 py-2 rounded duration-100 hover:bg-slate-300 hover:text-slate-900"
           >
-            API
-            <div className="absolute -top-1 -right-1 text-xs font-bold bg-gradient-to-r from-pink-500 to-violet-500 bg-clip-text text-transparent">
-              Pro
-            </div>
+            Demo
           </Link>
           <Link
             to="/auth"

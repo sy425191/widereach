@@ -16,7 +16,6 @@ const MagicCenter = () => {
   const playerContext = useContext(VideoPlayerContext);
   const editorContext = useContext(EditorContext);
 
-  const [selectedVideo, setSelectedVideo] = useState(null);
   const [selectedLanguage, setSelectedLanguage] = useState(languageOptions[0]);
   const [shouldTranslate, setShouldTranslate] = useState(false);
   const [translationLanguage, setTranslationLanguage] = useState(
@@ -28,11 +27,11 @@ const MagicCenter = () => {
   const [editorPage, setEditorPage] = useState(0);
 
   const handleSubmit = () => {
-    if (!selectedVideo) {
+    if (!editorContext.selectedVideo) {
       alert("Please select a video file.");
       return;
     }
-    const fileSize = selectedVideo.size / 1024 / 1024; // Convert to MB
+    const fileSize = editorContext.selectedVideo.size / 1024 / 1024; // Convert to MB
 
     // if (fileSize > 15) {
     //   alert("Please select a video file smaller than 15MB.");
@@ -44,7 +43,7 @@ const MagicCenter = () => {
 
     // Proceed with uploading the video
     GetSubtitle(
-      selectedVideo,
+      editorContext.selectedVideo,
       selectedLanguage.value,
       shouldTranslate,
       translationLanguage.value
@@ -64,8 +63,8 @@ const MagicCenter = () => {
       <MultiStepForm
         multiSelectFormPage={multiSelectFormPage}
         setMultiSelectFormPage={setMultiSelectFormPage}
-        selectedVideo={selectedVideo}
-        setSelectedVideo={setSelectedVideo}
+        selectedVideo={editorContext.selectedVideo}
+        setSelectedVideo={editorContext.setSelectedVideo}
         selectedLanguage={selectedLanguage}
         setSelectedLanguage={setSelectedLanguage}
         shouldTranslate={shouldTranslate}
@@ -79,7 +78,7 @@ const MagicCenter = () => {
       {multiSelectFormPage === 3 && (
         <div
           className={`flex items-center w-full h-full gap-y-4 ${
-            selectedVideo ? "flex-col" : "hidden"
+            editorContext.selectedVideo ? "flex-col" : "hidden"
           }`}
         >
           <div
@@ -89,7 +88,7 @@ const MagicCenter = () => {
             }}
           >
             <div className="flex-1 h-full relative bg-slate-900 rounded flex justify-center">
-              <VideoPlayer video={selectedVideo} />
+              <VideoPlayer video={editorContext.selectedVideo} />
             </div>
             <div className="flex h-full">
               <StyleEditor />

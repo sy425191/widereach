@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { useAuth } from "../../context/useAuth";
 
 const DashboardSidebar = () => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+  const auth = useAuth();
 
   return (
     <div className="w-full h-full flex flex-col justify-between items-center px-2 py-4">
@@ -48,7 +50,7 @@ const DashboardSidebar = () => {
             Help
           </Link>
           <Link
-            to="/"
+            to="/auth/logout"
             className="w-full bg-slate-800 px-3 py-2 rounded text-sm text-slate-300"
           >
             Logout
@@ -105,7 +107,7 @@ const DashboardSidebar = () => {
 
       <div className="w-full h-28 bg-slate-900 text-slate-300 rounded flex flex-col justify-evenly items-center gap-y-2">
         <div className="flex-1">
-
+          
         </div>
         <div className="w-full h-12 border-2 border-slate-800/50 flex items-center justify-between rounded">
           <img
@@ -114,7 +116,7 @@ const DashboardSidebar = () => {
             className="size-8 rounded-full"
           />
           <div className="flex-1 px-3">
-            <div className="text-sm font-semibold">Saurabh Yadav</div>
+            <div className="text-sm font-semibold">{auth.user.name}</div>
             <div className="text-xs">Free Plan</div>
           </div>
           <div className="size-8 rounded-full cursor-pointer flex justify-center items-center">

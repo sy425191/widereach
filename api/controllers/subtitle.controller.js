@@ -5,9 +5,6 @@ const TranscribeProject = async (audioUrl, language) => {
     apiKey: process.env.ASSEMBLY_AI_API_KEY,
   });
 
-  const audioUrlTemp =
-    "https://storage.googleapis.com/aai-web-samples/5_common_sports_injuries.mp3";
-
   console.log(language);
   const config = {
     audio: audioUrl,

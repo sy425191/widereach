@@ -8,8 +8,11 @@ import MagicCenter from "./pages/magicPage.js";
 import { EditorProvider } from "./context/editorContext.js";
 import { VideoPlayerProvider } from "./context/videoPlayerContext.js";
 import MyVideosPage from "./pages/myVideos.js";
+import { useAuth } from "./context/useAuth.js";
+import Logout from "./components/auth/logout.js";
 
 function App() {
+  const user = useAuth();
   return (
     <div className="bg-slate-950 text-white w-full h-screen overflow-y-auto">
       <EditorProvider>
@@ -20,13 +23,21 @@ function App() {
               <Route path="/auth" element={<AuthScreen />}>
                 <Route path="" element={<Login />} />
                 <Route path="signup" element={<SignUp />} />
+                <Route path="logout" element={<Logout />} />
                 <Route path="reset" element={<div> ok </div>} />
               </Route>
-              <Route path="/dashboard" element={<Dashboard />}>
-                <Route path="" element={<MagicCenter />} />
-                <Route path="videos" element={<MyVideosPage />} />
-                <Route path="plan" element={<div> Plan & Billing section will be activated soon </div>} />
-              </Route>
+              {user.user && (
+                <Route path="/dashboard" element={<Dashboard />}>
+                  <Route path="" element={<MagicCenter />} />
+                  <Route path="videos" element={<MyVideosPage />} />
+                  <Route
+                    path="plan"
+                    element={
+                      <div> Plan & Billing section will be activated soon </div>
+                    }
+                  />
+                </Route>
+              )}
             </Routes>
           </BrowserRouter>
         </VideoPlayerProvider>

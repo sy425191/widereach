@@ -70,6 +70,7 @@ const TimelinePlayer = () => {
       <div
         className="rounded-lg border-2 border-slate-500 cursor-pointer py-1 px-1.5 text-xs text-slate-500 hover:text-slate-400
                 transition-all duration-300 ease-in-out transform hover:scale-105"
+                onClick={() => {editorContext.downloadVideo()}}
       >
         Download <i className="fa fa-download"></i>
       </div>
